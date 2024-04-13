@@ -16,9 +16,9 @@ Before you build and run this Docker container, ensure you have the following in
 
 To build the Docker image, navigate to the root directory of this project and run the following command:
 
-\`\`\`
+```
 docker build -t transformers-docker .
-\`\`\`
+```
 
 This command builds a Docker image named `transformers-docker` based on the instructions in the Dockerfile.
 
@@ -26,9 +26,9 @@ This command builds a Docker image named `transformers-docker` based on the inst
 
 Once the image is built, you can start the container using:
 
-\`\`\`
+```
 docker run -p 7860:7860 transformers-docker
-\`\`\`
+```
 
 This command runs the Docker container and maps port 7860 of the container to port 7860 on your host. This is the port used by the Gradio interface.
 
