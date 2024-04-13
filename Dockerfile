@@ -16,12 +16,14 @@ RUN apt-get update && apt-get install -y \
 
 # Switch back to the non-root user
 USER myuser
-
+USER root
+RUN mkdir /app/flagged && chown myuser:myuser /app/flagged
+USER myuser
 # Copy the current directory contents into the container at /app
 COPY --chown=myuser:myuser . /app
 
+
 # Create a directory for flagged data
-RUN mkdir /app/flagged && chown myuser:myuser /app/flagged
 
 # Set environment variables
 ENV PATH="/home/myuser/.local/bin:${PATH}"
