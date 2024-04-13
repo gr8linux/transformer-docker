@@ -7,23 +7,24 @@ WORKDIR /app
 # Create a user with a home directory
 RUN useradd -m myuser
 
-# Install system dependencies as root
-USER root
+# Install system dependencies as root, including tools like 'ps', 'netstat', and 'ping'
 RUN apt-get update && apt-get install -y \
     libgomp1 \
     ffmpeg \
+    procps \
+    net-tools \
+    iproute2 \
+    inetutils-ping \
     && rm -rf /var/lib/apt/lists/*
 
-# Switch back to the non-root user
-USER myuser
-USER root
+# Create a directory for flagged data as root and then change ownership
 RUN mkdir /app/flagged && chown myuser:myuser /app/flagged
+
+# Switch back to the non-root user for security
 USER myuser
+
 # Copy the current directory contents into the container at /app
 COPY --chown=myuser:myuser . /app
-
-
-# Create a directory for flagged data
 
 # Set environment variables
 ENV PATH="/home/myuser/.local/bin:${PATH}"
@@ -40,5 +41,8 @@ RUN pip list
 # Make port 7860 available to the world outside this container
 EXPOSE 7860
 
+# Volume for persistent data
+VOLUME /home/myuser/.cache/huggingface
+ENV PYTHONUNBUFFERED=1
 # Run app.py when the container launches
 CMD ["python", "app.py"]
