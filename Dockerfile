@@ -43,6 +43,8 @@ EXPOSE 7860
 
 # Volume for persistent data
 VOLUME /home/myuser/.cache/huggingface
+
+# Let the stdout flush imidiately
 ENV PYTHONUNBUFFERED=1
 # Run app.py when the container launches
 CMD ["python", "app.py"]
