@@ -22,5 +22,5 @@ iface = gr.Interface(
 )
 print("End gradio")
 if __name__ == "__main__":
-    iface.launch()
+    iface.launch(server_name="0.0.0.0",debug=True)
     print("End the program")

@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
     net-tools \
     iproute2 \
     inetutils-ping \
+    curl \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a directory for flagged data as root and then change ownership
