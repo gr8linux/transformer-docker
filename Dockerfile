@@ -8,6 +8,7 @@ WORKDIR /app
 RUN useradd -m myuser
 
 # Install system dependencies as root, including tools like 'ps', 'netstat', and 'ping'
+
 RUN apt-get update && apt-get install -y \
     libgomp1 \
     ffmpeg \
@@ -46,5 +47,10 @@ VOLUME /home/myuser/.cache/huggingface
 
 # Let the stdout flush imidiately
 ENV PYTHONUNBUFFERED=1
+# Fix the DNS issue 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
 # Run app.py when the container launches
 CMD ["python", "app.py"]
