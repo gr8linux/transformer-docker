@@ -47,11 +47,6 @@ VOLUME /home/myuser/.cache/huggingface
 
 # Let the stdout flush imidiately
 ENV PYTHONUNBUFFERED=1
-# Fix the DNS issue 
-USER root
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-USER myuser
+
 # Run app.py when the container launches
 CMD ["python", "app.py"]
